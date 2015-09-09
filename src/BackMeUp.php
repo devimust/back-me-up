@@ -1,4 +1,5 @@
 <?php
+
 class BackMeUp extends BackMeUpUtils {
 
 	private $force = false;
@@ -146,7 +147,6 @@ class BackMeUp extends BackMeUpUtils {
 					if ('.' === $file || '..' === $file) continue;
 					$filePath = $srcPath . DIRECTORY_SEPARATOR . $file;
 					if (!is_dir($filePath)) continue;
-					//$dstFile = $filePath;
 					$this->backupRecursively($filePath, $dstPath, false, ($level+1));
 				}
 				closedir($handle);
@@ -154,9 +154,12 @@ class BackMeUp extends BackMeUpUtils {
 			return;
 		}
 
-		$dstFile = $dstPath . DIRECTORY_SEPARATOR . basename($srcPath) . '.' . $this->type;
+		$dstFile = $dstPath . DIRECTORY_SEPARATOR .
+			$this->cleanFileName(basename($srcPath)) . '.' . $this->type;
 		if ($level > 0) {
-			$dstFile = $dstPath . DIRECTORY_SEPARATOR . basename(dirname($srcPath)) . '-' . basename($srcPath) . '.' . $this->type;
+			$dstFile = $dstPath . DIRECTORY_SEPARATOR .
+				$this->cleanFileName(basename(dirname($srcPath))) . '-' .
+				$this->cleanFileName(basename($srcPath)) . '.' . $this->type;
 		}
 
 		$this->compress($srcPath, $dstFile);
@@ -187,15 +190,14 @@ class BackMeUp extends BackMeUpUtils {
 		$shortopts .= "t:p:s:";
 		$shortopts .= "fhv";
 		$longopts  = array(
-				"type:",
-				"password:",
-				"source:",
-				"force",
-				"help",
-				"verbose"
+			"type:",
+			"password:",
+			"source:",
+			"force",
+			"help",
+			"verbose"
 		);
 		$options = getopt($shortopts, $longopts);
-		// var_dump($options);
 
 		if (
 			count($options) == 0 ||

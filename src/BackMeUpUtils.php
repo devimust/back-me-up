@@ -1,4 +1,5 @@
 <?php
+
 class BackMeUpUtils {
 
 	protected $tarBinPath = '';
@@ -36,6 +37,13 @@ Report bugs to <name@domain.com>.
 
 EOT;
 		echo $output;
+	}
+
+	protected function cleanFileName($str) {
+		$result = strtolower($str);
+		$result = preg_replace("/[^a-z0-9\-\ \.]/", "", $result);
+		$result = str_replace(" ", "_", $result);
+		return $result;
 	}
 
 	protected function checkEnvironment() {
@@ -124,10 +132,10 @@ EOT;
 
 	protected static function timeDiff($time1, $time2) {
 		$timeCalc = $time1 - $time2;
-		if ($timeCalc > (60*60*24)) {$timeCalc = round($timeCalc/60/60/24) . " days";}
-		else if ($timeCalc > (60*60)) {$timeCalc = round($timeCalc/60/60) . " hours";}
-		else if ($timeCalc > 60) {$timeCalc = round($timeCalc/60) . " minutes";}
-		else if ($timeCalc > 0) {$timeCalc = round($timeCalc, 3) . " seconds";}
+		if ($timeCalc > (60*60*24)) {$timeCalc = round($timeCalc/60/60/24) . " day(s)";}
+		else if ($timeCalc > (60*60)) {$timeCalc = round($timeCalc/60/60) . " hour(s)";}
+		else if ($timeCalc > 60) {$timeCalc = round($timeCalc/60) . " minute(s)";}
+		else if ($timeCalc > 0) {$timeCalc = round($timeCalc, 3) . " second(s)";}
 		return $timeCalc;
 	}
 }
