@@ -1,0 +1,9 @@
+[{
+  "source": "/source/test/folder1",
+  "destination": "/target/folder",
+  "onlysubfolders": false
+},{
+  "source": "/source/test/folder2",
+  "destination": "/target/folder",
+  "onlysubfolders": true
+}]
