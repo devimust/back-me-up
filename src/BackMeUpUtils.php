@@ -18,21 +18,27 @@ class BackMeUpUtils {
 	protected function showHelp() {
 
 		$version = defined('BMU_VERSION') ? BMU_VERSION : '(no version found)';
+		$date = defined('BMU_DATE') ? BMU_DATE : '(no date found)';
+		$year = date('Y');
 
 		$output = <<<EOT
-Copyright (c) 2015-2016 BackMeUp.
-BackMeUp v{$version} (September 4th 2015). Usage:
-bmu [OPTION]... [FILE]...
+Copyright (c) 2015-{$year} BackMeUp (https://github.com/devimust/back-me-up).
+BackMeUp v{$version} (built {$date}).
+
+Usage:
+
+  bmu [OPTION]... [FILE]...
+
 Mandatory arguments to long options are mandatory for short options too.
 
--t, --type=TYPE         Type of target file to create (can be zip, tar, tar.gz or 7z)
--f, --force             Force overwrite of destination file and checksum
--s, --source=SOURCE     Path to json source file
--p, --password=PASSWORD Password used to encrypt target
--v, --verbose           Display debug output
--h, --help              This screen
+  -t, --type=TYPE         Type of target file to create (can be zip, tar, tar.gz or 7z)
+  -f, --force             Force overwrite of destination file and checksum
+  -s, --source=SOURCE     Path to json source file
+  -p, --password=PASSWORD Password used to encrypt target
+  -v, --verbose           Display debug output
+  -h, --help              This screen
 
-Report bugs to <name@domain.com>.
+Report bugs to <d3vimust@gmail.com>.
 
 
 EOT;
@@ -71,7 +77,7 @@ EOT;
 				if (empty($path)) {
 					throw new Exception('This class cannot be used as it depends on `7z` being installed and available.');
 				}
-				$this->$_7zBinPath = $path;
+				$this->_7zBinPath = $path;
 			break;
 		}
 

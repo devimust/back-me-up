@@ -1,6 +1,7 @@
 <?php
 
-define('BMU_VERSION', '0.2b');
+define('BMU_VERSION', '0.3');
+define('BMU_DATE', 'January 26, 2016');
 
 require_once "phar://bmu.phar/BackMeUpUtils.php";
 require_once "phar://bmu.phar/BackMeUp.php";
